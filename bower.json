@@ -19,9 +19,6 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "font-awesome": "https://github.com/FortAwesome/Font-Awesome.git#v4.2.0"
-  },
   "devDependencies": {
     "less": "https://github.com/less/less.js.git#v1.7.5"
   }

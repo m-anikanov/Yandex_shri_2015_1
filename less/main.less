@@ -1,3 +1,10 @@
+.noselect{
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;          /* Likely future */
+}
+
 html{
 	font-size: 12px;
 }
@@ -5,84 +12,413 @@ body{
 	margin: 0;
 	padding: 0;
 	font-family: "Segoe UI";
-	background-image: url("/img/background.jpg");
 	background-size: cover;
 }
-@text-color: #585f6a;
-.app{
-	.wrap{
-		margin:auto;
-		width: 1000px;
-		margin-top: 5rem;
-		.timetable{
-			background-color: rgba(46, 52, 59, 1);
-			box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-			color: @text-color;
-			overflow: auto;
-			&__header{
-				font-size: 2rem;
-				padding: 1rem 2rem;
-				border-bottom: 1px solid @text-color;
+footer{
+	border-top:1px solid #ccc;
+	font-size: 14px;
+	text-align: center;
+	opacity: 0.5;
+	padding: 20px;
+	overflow:auto;
+}
+.timetable{
+
+	/* пришлось использовать div'ы, чтоб браузер не пугался тегов arrival и departure в качестве строк таблицы*/
+	.table{
+		display:table;
+	}
+	.tr{
+		display: table-row;
+	}
+	.td{
+		display: table-cell;
+	}
+	&__header{
+		position: fixed;
+		z-index: 10;
+		top: 0;
+		background-color: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+		cursor: default;
+		overflow: auto;
+		.noselect;
+		&-info{
+			margin: 5px 5px 0;
+			line-height: 25px;
+			i.airport{
+				margin-right: 5px;
 			}
-			&__main{
-				margin-bottom: 2rem;
-				&-table{
+			span{
+				font-size: 25px;
+				vertical-align: middle;
+				margin-right: 20px;
+			}
+			label{
+				display: inline-block;
+				border-radius: 5px;
+				padding: 5px 10px;
+				vertical-align: top;
+				margin-right: 10px;
+				font-size: 14px;
+				cursor: pointer;
+				transition: background-color .1s linear;
+				&:before{
+					content: '';
+					background-color: white;
+					border: 1px solid #DBDEEC;
+					border-radius: 3px;
+					width: 15px;
+					height: 15px;
+					display: inline-block;
+					float: left;
+    				margin: 4px 8px 4px 0;
+					box-shadow: inset 0 0 0px rgba(115, 106, 163, 0.72);
+					transition: box-shadow .1s linear;
+					background-image: none;
+					background-position: center;
+    				background-size: contain;
+				}
+				&:hover:before{
+					box-shadow: inset 0 0 2px rgba(115, 106, 163, 0.5);
+				}
+				&:before:hover{
+					outline: inset 0 0 2px rgba(115, 106, 163, 0.5);
+				}
+				&:hover{
+					background-color: rgba(219, 222, 236, 0.2);
+				}
+
+			}
+		}
+	}
+	&__main{
+		margin-top: 86px;
+	}
+	&__header-table{
+		border-collapse:collapse;
+		width: 100%;
+		font-size: 1.2em;
+		table-layout: fixed;
+		border-top: 1px solid #E7E7E7;
+	    margin-top: 5px;
+		tr{
+			th{
+				font-weight: normal;
+    			padding: 10px 5px;
+				position: relative;
+				vertical-align: bottom;
+				&:first-child{
+					width: 0px;
+				}
+				span{
+				    white-space: nowrap;
+				    border-radius: 20px;
+				    width: 100%;
+				    display: block;
+				    box-sizing: border-box;
+					text-overflow: ellipsis;
 					overflow: hidden;
-					border-collapse:collapse;
-					width: 100%;
-					font-size: 1.1em;
-					thead{
-						tr{
-							background-color: #2a2f36;
-							th{
-								font-weight: normal;
-								padding: 1rem .5rem;
-							}
-						}
+					&:first-letter{
+						text-transform: uppercase;
 					}
-					tbody{
-						tr{
-							&:nth-child(even){
-								background-color: #2a2f36;
-							}
-							td{
-							padding: .5rem .5rem;
-							text-align: center;
-							}
-						}						
-					}
-
-
+				}
+				span.short{
+					display: none;
 				}
 			}
 		}
 	}
-}
-.timetable__header #manager:checked + .timetable__main #managed{
-	display: none;
+	&__main-table{
+		overflow: hidden;
+		border-collapse:collapse;
+		width: 100%;
+		font-size: 1.2em;
+		table-layout: fixed;
+		&>.tr{
+			cursor: pointer;
+			outline: none;
+			display: none;
+			&>.td:first-child{
+				z-index: 5;
+			}
+			&>.td{
+				padding: 5px 5px;
+				text-align: center;
+				position: relative;
+				vertical-align: middle;
+				&:first-child{
+					width: 0px;
+					overflow: visible;
+				}
+				&:hover{
+					&:before{
+						content: "";
+						position: absolute;
+						left:0;
+						top: -100vh;
+						width: 100%;
+						height: 200vh;
+						z-index: -1;
+						background-color: rgba(255, 211, 0, 0.07) !important;
+					}
+				}
+
+				span.val{
+					text-overflow: ellipsis;
+					overflow: hidden;
+					display: block;
+
+					line-height: 26px;
+
+				}
+			}
+			&:hover, &:focus{
+				background-color: rgba(255, 211, 0, 0.07) !important;
+			}
+			.slideDown{
+				display: block;
+				position: fixed;
+			    top:  -500px;
+				left: 50vw;
+			    margin-left: -210px;
+			    padding: 20px;
+			    background-color: white;
+			    border-radius: 2px;
+			    width: 400px;
+			    z-index: 9;
+				box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+			    transition: .5s;
+			    cursor: auto;
+				h2{
+					margin: 0 0 20px;
+    				font-weight: normal;
+				}
+				table{
+					width: 100%;
+					border-collapse: collapse;
+					table-layout: fixed;
+					tr{
+						height: 40px;
+						td{
+							padding: 5px 20px;
+							vertical-align: top;
+							line-height: 26px;
+							&:first-child{
+								&:first-letter{
+									text-transform: uppercase;
+								}
+								text-align: right;
+								border-right: 1px solid rgba(0, 0, 0, 0.05);
+							}
+							&:last-child{
+								text-align: left;
+								color: rgba(0, 0, 0, 0.7);
+							}
+						}
+					}
+
+				}
+			}
+			&:focus .slideDown{	
+			    top:150px;
+			}
+
+
+		}
+		span.flight{
+			background-color: rgba(121, 134, 203, 0.2);
+		    border-radius: 10px;
+		    padding: 0 10px;
+		    margin: 0 2px 2px 0;
+		    white-space: nowrap;
+			display: inline;
+		}
+		span.logo{
+					vertical-align: middle;
+				    border-radius: 3px;
+				    box-shadow: 0 0 1px #ccc;
+				    padding: 3px 5px;
+				    margin: 0 5px;
+				    background-color: white;
+				    width: 150px;
+				    display: block;
+				    height: 20px;
+				    background-size: contain;
+				    background-repeat: no-repeat;
+				    background-position: center;
+				    line-height: 17px;
+				    max-width: 100%;
+				    box-sizing: border-box;
+				    margin: auto;
+				    text-align: center;
+				    img{
+				    	max-width: 100%;
+    					max-height: 100%;
+				    }
+		}
+		.leanse{
+				visibility: hidden;
+				width: 100%;
+			    position: fixed;
+			    height: 100%;
+			    top: 86px;
+			    left: 0;
+			    background-color: rgba(0, 0, 0, 0.3)!important;
+			    z-index: 4;
+			    opacity: 0.0;
+			    transition:visibility 0s linear 0.2s,opacity 0.2s linear;
+			}
+
+		&>.tr:focus ~ .leanse{
+				visibility:visible;
+				opacity:1;
+				transition-delay:0s;
+			}		
+	}
+	&>input[type="checkbox"]{
+		display: none;
+	}
+
+
+	&__header-table tr>th:nth-of-type(2), &__main-table>.tr>.td:nth-of-type(2){
+		width: 5px;
+	}
+	&__header-table tr>th:nth-of-type(3), &__main-table>.tr>.td:nth-of-type(3){
+		width: 10px;
+	}
+	&__header-table tr>th:nth-of-type(4), &__main-table>.tr>.td:nth-of-type(4){
+		width: 10px;
+	}
+	&__header-table tr>th:nth-of-type(5), &__main-table>.tr>.td:nth-of-type(5){
+		width: 20px;
+	}
+	&__header-table tr>th:nth-of-type(6), &__main-table>.tr>.td:nth-of-type(6){
+		width: 20px;
+	}
+	&__header-table tr>th:nth-of-type(7), &__main-table>.tr>.td:nth-of-type(7){
+		width: 10px;
+	}
+	&__header-table tr>th:nth-of-type(8), &__main-table>.tr>.td:nth-of-type(8){
+		width: 5px;
+	}
+	&__header-table tr>th:nth-of-type(9), &__main-table>.tr>.td:nth-of-type(9){
+		width: 15px;
+	}
+	&__header-table tr>th:nth-of-type(10), &__main-table>.tr>.td:nth-of-type(10){
+		width: 30px;
+	}
+
+	i.departure, i.arrival, i.airport, i.time{
+		vertical-align: middle;
+		width: 30px;
+	    height: 30px;
+	    background-size: contain;
+	    background-repeat: no-repeat;
+	    display: inline-block;
+	}
+	i.departure{
+		background-image: url('/img/takeoff.png');
+	}
+	i.arrival{
+		background-image: url('/img/landing.png');
+	}
+	i.airport{
+		background-image: url('/img/airport.png');
+	}
+	i.time{
+		width: 15px;
+	    height: 15px;
+		background-image: url('/img/time.png');
+		margin: 0 3px 3px 0;
+	}
+
 }
 
-td{
-	position: relative;
+/* показ/скрытие строчек в зависимости от состояния чекбоксов */
+#arrival:checked ~ .timetable__main arrival.tr{
+	display: table-row;
 }
-td:hover:before{
-	content: "";
-	position: absolute;
-	left:0;
-	bottom: 0;
-	width: 100%;
-	height: 100vh;
-	z-index: -1;
+#departure:checked ~ .timetable__main departure.tr{
+	display: table-row;
+}
 
-	background-color: rgba(0, 0, 0, 0.1)!important;
+/* правильное отображение затемнения нечетных строчек (пришлось использовать собственные теги, чтоб :nth-of-type реагировало на изменения)*/
+#arrival:checked + #departure:not(:checked) ~ .timetable__main > .timetable__main-table arrival:nth-of-type(odd){
+	background-color: rgba(0, 0, 0, 0.05);
 }
-td:hover:after{
-	content: "";
-	position: absolute;
-	right:0;
-	bottom: 0;
-	width: 100vw;
-	height: 100%;
-	z-index: -1;
-	background-color: rgba(0, 0, 0, 0.1)!important;
+#arrival:not(:checked) + #departure:checked ~ .timetable__main > .timetable__main-table departure:nth-of-type(odd){
+	background-color: rgba(0, 0, 0, 0.05);
 }
+#arrival:checked + #departure:checked ~ .timetable__main > .timetable__main-table > *:nth-child(odd){
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+/* красим лейблы под состояния чекбокса */
+#arrival:checked ~ .timetable__header label[for="arrival"]{
+	background-color: rgba(219, 222, 236, 0.2);
+	&:before{
+		background-image: url('/img/checkmark.png');
+	}
+					
+}
+#departure:checked ~ .timetable__header label[for="departure"]{
+	background-color: rgba(219, 222, 236, 0.2);
+	&:before{
+		background-image: url('/img/checkmark.png');
+	}
+}
+
+
+html{min-width: 550px;}
+
+/* Фиксируем шапку */
+
+@media (max-width: 550px) {
+	.timetable__header{
+		position: static;
+	}
+	.timetable__main{
+		margin-top: 0;
+	}
+}
+
+
+/* Убираем столбец примечаний */ 
+
+@media (max-width: 700px) {
+  .timetable__header-table th:nth-child(10), .timetable__main-table .td:nth-child(10) {
+    display: none;
+  }
+}
+
+
+/* Убираем столбец марки самолета */ 
+
+@media (max-width: 900px) {
+  .timetable__header-table th:nth-child(4), .timetable__main-table .td:nth-child(4) {
+    display: none;
+  }
+}
+
+/* Убираем столбец названия авиакомпании */ 
+
+@media (max-width: 1000px) {
+  .timetable__header-table th:nth-child(6), .timetable__main-table .td:nth-child(6) {
+    display: none;
+  }
+}
+
+/* Заменяем длинные название на короткие */
+
+@media (max-width: 1500px) {
+	.timetable__header-table tr th span.val{
+		display: none;
+	}
+	.timetable__header-table tr th span.short{
+		display: block;
+	}
+}
+
+
