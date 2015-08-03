@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'Segoe UI light';
+    src: url('..fonts/segoeuil.ttf');
+    src: url('..fonts/segoeuil.ttf') format('truetype'),
+}
+@font-face {
+    font-family: 'Segoe UI';
+    src: url('../fonts/segoeui.ttf');
+    src: url('../segoeui.ttf') format('truetype'),
+}
+
 .noselect{
 	-webkit-user-select: none;  /* Chrome all / Safari all */
 	-moz-user-select: none;     /* Firefox all */
@@ -318,18 +329,18 @@ footer{
 	    display: inline-block;
 	}
 	i.departure{
-		background-image: url('/img/takeoff.png');
+		background-image: url('../img/takeoff.png');
 	}
 	i.arrival{
-		background-image: url('/img/landing.png');
+		background-image: url('../img/landing.png');
 	}
 	i.airport{
-		background-image: url('/img/airport.png');
+		background-image: url('../img/airport.png');
 	}
 	i.time{
 		width: 15px;
 	    height: 15px;
-		background-image: url('/img/time.png');
+		background-image: url('../img/time.png');
 		margin: 0 3px 3px 0;
 	}
 
@@ -359,14 +370,14 @@ footer{
 #arrival:checked ~ .timetable__header label[for="arrival"]{
 	background-color: rgba(219, 222, 236, 0.2);
 	&:before{
-		background-image: url('/img/checkmark.png');
+		background-image: url('../img/checkmark.png');
 	}
 					
 }
 #departure:checked ~ .timetable__header label[for="departure"]{
 	background-color: rgba(219, 222, 236, 0.2);
 	&:before{
-		background-image: url('/img/checkmark.png');
+		background-image: url('../img/checkmark.png');
 	}
 }
 
@@ -381,6 +392,9 @@ html{min-width: 550px;}
 	}
 	.timetable__main{
 		margin-top: 0;
+	}
+	.leanse{
+		top: 0;
 	}
 }
 
